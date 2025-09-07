@@ -1,0 +1,77 @@
+class AbrigoAnimais {
+
+  encontraPessoas(brinquedosPessoa1, brinquedosPessoa2, ordemAnimais) {
+    const animaisDados = {
+      Rex: ["RATO", "BOLA"],
+      Mimi: ["BOLA", "LASER"],
+      Fofo: ["BOLA", "RATO", "LASER"],
+      Zero: ["RATO", "BOLA"],
+      Bola: ["CAIXA", "NOVELO"],
+      Bebe: ["LASER", "RATO", "BOLA"],
+      Loco: ["SKATE", "RATO"]
+    };
+
+    const lista1 = brinquedosPessoa1.split(",").map(i => i.trim().toUpperCase());
+    const lista2 = brinquedosPessoa2.split(",").map(i => i.trim().toUpperCase());
+    const animalLista = ordemAnimais.split(",").map(i => i.trim());
+
+    if (temDuplicados(lista1) || lista1.includes("")) {
+      return { erro: "Brinquedo inválido", lista: null }
+    }
+    if (temDuplicados(lista2) || lista2.includes("")) {
+      return { erro: "Brinquedo inválido", lista: null }
+    }
+    if (temDuplicados(animalLista) || (animalLista.some(animal => !(animal in animaisDados)))) {
+      return { erro: "Animal inválido", lista: null }
+    }
+
+    let lista = []
+
+    for (const animalNome of animalLista) {
+      const favoritos = animaisDados[animalNome]
+
+      const pessoa1Tem = contemNaOrdem(lista1, favoritos)
+      const pessoa2Tem = contemNaOrdem(lista2, favoritos)
+
+      let destino
+      if (pessoa1Tem && !pessoa2Tem) {
+        destino = "pessoa 1"
+      } else if (pessoa2Tem && !pessoa1Tem) {
+        destino = "pessoa 2"
+      } else {
+        destino = "abrigo"
+      }
+
+      lista.push(`${animalNome} - ${destino}`)
+
+    }
+
+    lista.sort();
+
+    return { lista };
+
+    function contemNaOrdem(listaBrinquedosPessoa, brinquedosFavoritos) {
+      let i = 0;
+      for (const brinquedo of listaBrinquedosPessoa) {
+        if (brinquedo === brinquedosFavoritos[i]) {
+          i++;
+        }
+        if (i === brinquedosFavoritos.length) {
+          break;
+        }
+      }
+      return i === brinquedosFavoritos.length
+    }
+
+    function temDuplicados(lista) {
+      if (new Set(lista).size === lista.length) {
+        return false
+      } else {
+        return true
+      }
+    }
+
+  }
+}
+
+export { AbrigoAnimais as AbrigoAnimais };
