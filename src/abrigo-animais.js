@@ -18,38 +18,39 @@ class AbrigoAnimais {
     const animalLista = ordemAnimais.split(",").map(i => i.trim());
 
     if (temDuplicados(lista1) || lista1.includes("") || lista1.some(b => !(brinquedosValidos.has(b)))) {
-      return { erro: "Brinquedo inválido", lista: null }
+      return { erro: "Brinquedo inválido", lista: null };
     }
     if (temDuplicados(lista2) || lista2.includes("") || lista2.some(b => !(brinquedosValidos.has(b)))) {
-      return { erro: "Brinquedo inválido", lista: null }
+      return { erro: "Brinquedo inválido", lista: null };
     }
     if (temDuplicados(animalLista) || (animalLista.some(animal => !(animal in animaisDados)))) {
-      return { erro: "Animal inválido", lista: null }
+      return { erro: "Animal inválido", lista: null };
     }
 
-    let lista = []
+    let lista = [];
 
     let quantidadeAnimaisPessoa1 = 0;
     let quantidadeAnimaisPessoa2 = 0;
 
     for (const animalNome of animalLista) {
-      const favoritos = animaisDados[animalNome]
+      const favoritos = animaisDados[animalNome];
 
-      const pessoa1Tem = contemNaOrdem(lista1, favoritos)
-      const pessoa2Tem = contemNaOrdem(lista2, favoritos)
+      const pessoa1Tem = contemNaOrdem(lista1, favoritos);
+      const pessoa2Tem = contemNaOrdem(lista2, favoritos);
 
-      let destino
+      let destino;
+
       if (pessoa1Tem && !pessoa2Tem && quantidadeAnimaisPessoa1 < 3) {
-        destino = "pessoa 1"
-        quantidadeAnimaisPessoa1++
+        destino = "pessoa 1";
+        quantidadeAnimaisPessoa1++;
       } else if (pessoa2Tem && !pessoa1Tem && quantidadeAnimaisPessoa2 < 3) {
-        destino = "pessoa 2"
-        quantidadeAnimaisPessoa2++
+        destino = "pessoa 2";
+        quantidadeAnimaisPessoa2++;
       } else {
-        destino = "abrigo"
+        destino = "abrigo";
       }
 
-      lista.push(`${animalNome} - ${destino}`)
+      lista.push(`${animalNome} - ${destino}`);
     }
 
     lista.sort();
@@ -66,14 +67,14 @@ class AbrigoAnimais {
           break;
         }
       }
-      return i === brinquedosFavoritos.length
+      return i === brinquedosFavoritos.length;
     }
 
     function temDuplicados(lista) {
       if (new Set(lista).size === lista.length) {
-        return false
+        return false;
       } else {
-        return true
+        return true;
       }
     }
 
