@@ -11,14 +11,16 @@ class AbrigoAnimais {
       Loco: ["SKATE", "RATO"]
     };
 
+    const brinquedosValidos = new Set(Object.values(animaisDados).flat());
+
     const lista1 = brinquedosPessoa1.split(",").map(i => i.trim().toUpperCase());
     const lista2 = brinquedosPessoa2.split(",").map(i => i.trim().toUpperCase());
     const animalLista = ordemAnimais.split(",").map(i => i.trim());
 
-    if (temDuplicados(lista1) || lista1.includes("")) {
+    if (temDuplicados(lista1) || lista1.includes("") || lista1.some(b => !(brinquedosValidos.has(b)))) {
       return { erro: "Brinquedo inválido", lista: null }
     }
-    if (temDuplicados(lista2) || lista2.includes("")) {
+    if (temDuplicados(lista2) || lista2.includes("") || lista2.some(b => !(brinquedosValidos.has(b)))) {
       return { erro: "Brinquedo inválido", lista: null }
     }
     if (temDuplicados(animalLista) || (animalLista.some(animal => !(animal in animaisDados)))) {
@@ -27,6 +29,9 @@ class AbrigoAnimais {
 
     let lista = []
 
+    let quantidadeAnimaisPessoa1 = 0;
+    let quantidadeAnimaisPessoa2 = 0;
+
     for (const animalNome of animalLista) {
       const favoritos = animaisDados[animalNome]
 
@@ -34,16 +39,17 @@ class AbrigoAnimais {
       const pessoa2Tem = contemNaOrdem(lista2, favoritos)
 
       let destino
-      if (pessoa1Tem && !pessoa2Tem) {
+      if (pessoa1Tem && !pessoa2Tem && quantidadeAnimaisPessoa1 < 3) {
         destino = "pessoa 1"
-      } else if (pessoa2Tem && !pessoa1Tem) {
+        quantidadeAnimaisPessoa1++
+      } else if (pessoa2Tem && !pessoa1Tem && quantidadeAnimaisPessoa2 < 3) {
         destino = "pessoa 2"
+        quantidadeAnimaisPessoa2++
       } else {
         destino = "abrigo"
       }
 
       lista.push(`${animalNome} - ${destino}`)
-
     }
 
     lista.sort();
