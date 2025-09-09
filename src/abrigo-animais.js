@@ -18,13 +18,13 @@ class AbrigoAnimais {
     const animalLista = ordemAnimais.split(",").map(i => i.trim());
 
     if (temDuplicados(lista1) || lista1.includes("") || lista1.some(b => !(brinquedosValidos.has(b)))) {
-      return { erro: "Brinquedo inválido", lista: null };
+      return { erro: "Brinquedo inválido" };
     }
     if (temDuplicados(lista2) || lista2.includes("") || lista2.some(b => !(brinquedosValidos.has(b)))) {
-      return { erro: "Brinquedo inválido", lista: null };
+      return { erro: "Brinquedo inválido" };
     }
     if (temDuplicados(animalLista) || (animalLista.some(animal => !(animal in animaisDados)))) {
-      return { erro: "Animal inválido", lista: null };
+      return { erro: "Animal inválido" };
     }
 
     let lista = [];
