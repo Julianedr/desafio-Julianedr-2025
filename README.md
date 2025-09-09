@@ -64,4 +64,5 @@ npm test
 <img src="https://img.shields.io/badge/Git-E34F26?style=for-the-badge&logo=git&logoColor=white" />
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
 <img src="https://img.shields.io/badge/Node.js-22.19.0-green?logo=node.js&logoColor=white" />
+<img src="https://img.shields.io/badge/tested_with-Jest-99424f.svg?logo=jest"/>
 <img src="https://img.shields.io/badge/-Visual%20Studio%20Code-333333?style=flat&logo=visual-studio-code&logoColor=007ACC">
